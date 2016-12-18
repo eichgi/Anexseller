@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<title>Anexseller | {{title}}</title>
+		<link href="{{ 'bower_components/bootstrap/dist/css/bootstrap.min.css'|public }}" rel="stylesheet" />
+		<link href="{{ 'bower_components/bootstrap/dist/css/bootstrap-theme.min.css'|public }}" rel="stylesheet" />
+		<link href="{{ 'bower_components/font-awesome/css/font-awesome.min.css'|public }}" rel="stylesheet" />
+		<link href="{{ 'bower_components/EasyAutocomplete/dist/easy-autocomplete.min.css'|public }}" rel="stylesheet" />
+		<link href="{{ 'css/style.css'|public }}" rel="stylesheet" />
+	</head>
+    <body>
+
+		<div class="container">
+			<div class="col-xs-12">
+				{% if menu is null or menu %}
+				{% include('partials/menu.twig') %}
+				{% endif %}
+				{% block content %}{% endblock %}
+
+				<footer class="text-center well">
+					Desarrollador por <a href="http://Anexsoft" target="blank">Anexsoft</a> {{ "now"|date("Y") }}
+				</footer>
+			</div>
+		</div>
+
+		<script src="{{ 'bower_components/jquery/dist/jquery.min.js'|public }}"></script>
+		<script src="{{ 'bower_components/bootstrap/dist/js/bootstrap.min.js'|public }}"></script>
+		<script src="{{ 'bower_components/riot/riot.min.js'|public }}"></script>
+		<script src="{{ 'bower_components/riot/riot+compiler.min.js'|public }}"></script>
+		<script src="{{ 'bower_components/jquery.form.min/index.js'|public }}"></script>
+		<script src="{{ 'bower_components/moment/min/moment.min.js'|public }}"></script>
+		<script src="{{ 'bower_components/EasyAutocomplete/dist/jquery.easy-autocomplete.min.js'|public }}"></script>
+		<script src="{{ 'js/anexgrid/jquery.anexgrid.min.js'|public }}"></script>
+		<script src="{{ 'js/ini.js'|public }}"></script>
+		<script src="{{ 'js/formulas.s'|public }}"></script>
+
+		{% block scripts %}{% endblock %}
+
+		<script>
+			function redirect(url) { url = url || ''; window.location.href = base_url(url);}
+			function base_url(url) { url = url || ''; return '{{''|url}}' + url;}
+		</script>
+	</body>
+</html>

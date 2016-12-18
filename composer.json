@@ -1,0 +1,16 @@
+{
+  "autoload": {
+    "psr-4": {
+        "Core\\": "core/",
+        "App\\": "app/"
+    }
+  },
+  "require": {
+    "phroute/phroute": "^2.1",
+    "twig/twig": "~1.0",
+    "monolog/monolog": "^1.21",
+    "illuminate/database": "^5.3",
+    "respect/validation": "^1.1",
+    "intervention/image": "^2.3"
+  }
+}

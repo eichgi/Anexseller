@@ -1,0 +1,15 @@
+{% extends "partials/layout.twig" %}
+{% block content %}
+    <h1 class="page-header">Comprobantes</h1>
+    <ol class="breadcrumb">
+        <li><a href="{{ 'comprobante'|url }}">Comprobante</a></li>
+        <li class="active">Nuevo</li>
+    </ol>
+    <comprobante></comprobante>
+{% endblock %}
+{% block scripts %}
+    <script src="{{ 'tags/comprobante.tag'|public }}" type="riot/tag"></script>
+    <script>
+        riot.mount('comprobante');
+    </script>
+{% endblock %}

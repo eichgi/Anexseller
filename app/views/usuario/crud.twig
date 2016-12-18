@@ -1,0 +1,65 @@
+{% extends "partials/layout.twig" %}
+{% block content %}
+    <h1 class="page-header">
+        {% if model.id %}
+            {{ model.nombre ~ ' ' ~ model.apellido }}
+        {% else %}
+            Nuevo registro
+        {% endif %}
+    </h1>
+
+    <ol class="breadcrumb">
+        <li><a href="{{ 'usuario'|url }}">Usuarios</a></li>
+        <li class="active">
+            {% if model.id %}
+                {{ model.nombre ~ ' ' ~ model.apellido }}
+            {% else %}
+                Nuevo registro
+            {% endif %}
+        </li>
+    </ol>
+
+    <form method="post" action="{{ 'usuario/guardar'|url }}">
+        <div class="alert-container"></div>
+        <input type="hidden" class="form-control" name="id" value="{{ model.id }}" />
+        <div class="form-group">
+            <label>Rol</label>
+            <select name="rol_id" class="form-control">
+            {% for rol in roles %}
+            <option value="{{rol.id}}" {{ model.rol_id == rol.id ? 'selected' : '' }}>{{rol.nombre}}</option>
+            {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" class="form-control" name="nombre" value="{{ model.nombre }}" />
+            <span data-key="nombre" class="form-validation-failed"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Apellido</label>
+            <input type="text" class="form-control" name="apellido" value="{{ model.apellido }}" />
+            <span data-key="apellido" class="form-validation-failed"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Correo</label>
+            <input type="email" class="form-control" name="correo" value="{{ model.correo }}" autocomplete="off" />
+            <span data-key="correo" class="form-validation-failed"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" name="password" value="" autocomplete="off" />
+            {% if model.id %}
+            <span class="help-block">Para actualizar la contraseña escriba una nueva</span>
+            {% endif %}
+            <span data-key="password" class="form-validation-failed"></span>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit" data-ajax="true">Guardar</button>
+        </div>        
+    </form>
+{% endblock %}

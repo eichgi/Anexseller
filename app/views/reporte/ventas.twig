@@ -1,0 +1,29 @@
+{% extends "partials/layout.twig" %}
+{% block content %}
+    <h1 class="page-header">
+        Reporte de venta por mes
+    </h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th style="width:100px;">Año</th>
+                <th>Mes</th>
+                <th style="width:200px;" class="text-right">Costo</th>
+                <th style="width:200px;" class="text-right">Ingreso</th>
+                <th style="width:200px;" class="text-right">Utilidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in 0..9 %}
+            <tr>
+                <td>2016</td>
+                <td>Diciembre</td>
+                <td class="text-right">USD 100.00</td>
+                <td class="text-right">USD 500.00</td>
+                <td class="text-right">USD 400.00</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

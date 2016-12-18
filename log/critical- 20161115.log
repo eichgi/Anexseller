@@ -1,0 +1,4 @@
+[2016-11-15 21:21:03] App\Repositories\UsuarioRepository.CRITICAL: Intento fallido de autenticación para eduardo@anexsoft.com [] []
+[2016-11-15 23:43:50] App\Repositories\UsuarioRepository.CRITICAL: Intento fallido de autenticación para eduardo@anexsoft.com [] []
+[2016-11-15 23:43:56] App\Repositories\UsuarioRepository.CRITICAL: Intento fallido de autenticación para erodriguezp105@gmail.com [] []
+[2016-11-15 23:52:01] App\Repositories\UsuarioRepository.CRITICAL: Intento fallido de autenticación para eduardo@anexsoft.com [] []

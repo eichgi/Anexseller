@@ -1,0 +1,4 @@
+[2016-12-14 13:36:32] App\Repositories\UsuarioRepository.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: NO) [] []
+[2016-12-14 13:36:51] App\Repositories\UsuarioRepository.ERROR: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: NO) [] []
+[2016-12-14 13:55:45] App\Repositories\UsuarioRepository.ERROR: Undefined property: App\Repositories\ClienteRepository::$usuario [] []
+[2016-12-14 13:56:33] App\Repositories\UsuarioRepository.ERROR: Undefined property: App\Repositories\ClienteRepository::$usuario [] []

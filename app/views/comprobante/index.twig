@@ -1,0 +1,36 @@
+{% extends "partials/layout.twig" %}
+{% block content %}
+    <h1 class="page-header">
+        <a href={{ 'comprobante/nuevo'|url }} class="btn btn-default pull-right">Nuevo</a>
+        Comprobantes
+    </h1>
+
+    <ol class="breadcrumb">
+        <li class="active">Comprobantes</li>
+    </ol>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Comprobante</th>
+                <th>Cliente</th>
+                <th style="width:140px;">Emitido</th>
+                <th class="text-right" style="width:140px;">Sub Total</th>
+                <th class="text-right" style="width:140px;">IVA</th>
+                <th class="text-right" style="width:140px;">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in 0..9 %}
+            <tr>
+                <td><a>#000001</a></td>
+                <td>Juan Perez</td>
+                <td>2016-02-02</td>
+                <td class="text-right">USD 1000.00</td>
+                <td class="text-right">USD 100.00</td>
+                <td class="text-right">USD 1100.00</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

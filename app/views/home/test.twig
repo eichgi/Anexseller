@@ -1,0 +1,9 @@
+{% extends "partials/layout.twig" %}
+{% block content %}
+    {{ "-2days"|date("m/d/Y") }}
+    <ul>
+        {% for m in model %}
+            <li>{{ m }} ({{ m|length }}length)</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

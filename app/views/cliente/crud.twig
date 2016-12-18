@@ -1,0 +1,32 @@
+{% extends "partials/layout.twig" %}
+{% block content %}
+    {#{{ dump(model) }}#}
+    <h1 class="page-header">Clientes</h1>
+
+    <ol class="breadcrumb">
+        <li><a href="{{ 'cliente'|url }}">Clientes</a></li>
+        <li class="active">
+            CRUD
+        </li>
+    </ol>
+
+    <form method="post" action="{{ 'cliente/guardar'|url }}">
+        <div class="alert-container"></div>
+        <input type="hidden" class="form-control" name="id" value="{{ model.id }}" />
+        <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" class="form-control" name="nombre" value="{{ model.nombre }}" />
+            <span data-key="nombre" class="form-validation-failed"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Dirección</label>
+            <textarea class="form-control" name="direccion" rows="2">{{ model.direccion }}</textarea>
+            <span data-key="direccion" class="form-validation-failed"></span>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit" data-ajax="true">Guardar</button>
+        </div>        
+    </form>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "partials/layout.twig" %}
+{% block content %}
+    <h1 class="page-header">
+        Rotación de productos por mes
+    </h1>
+
+    <div class="well well-sm">
+        <div class="row">
+            <div class="col-xs-5">
+                <select class="form-control">
+                    <option value="2016">2016</option>
+                </select>
+            </div>
+            <div class="col-xs-5">
+                <select class="form-control">
+                    <option value="1">Enero</option>
+                    <option value="2">Febrero</option>
+                    <option value="3">Marzo</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Mayo</option>
+                    <option value="6">Junio</option>
+                    <option value="7">Julio</option>
+                    <option value="8">Agosto</option>
+                    <option value="9">Setiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
+                </select>
+            </div>
+            <div class="col-xs-2">
+                <button class="btn btn-primary btn-block">
+                    <i class="fa fa-filter"></i> Buscar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th style="width:140px;" class="text-right">Cantidad</th>
+                <th style="width:140px;" class="text-right">Costo</th>
+                <th style="width:140px;" class="text-right">Ingreso</th>
+                <th style="width:140px;" class="text-right">Utilidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in 0..9 %}
+            <tr>
+                <td>Producto {{ i }}</td>
+                <td class="text-right">30</td>
+                <td class="text-right">USD 1000.00</td>
+                <td class="text-right">USD 3000.00</td>
+                <td class="text-right">USD 2000.00</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

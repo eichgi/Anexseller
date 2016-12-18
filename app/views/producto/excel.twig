@@ -1,0 +1,27 @@
+{% extends "partials/excel_template.twig" %}
+{% block content %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Marca</th>
+            <th>Costo</th>
+            <th>Precio</th>
+            <th>Margen</th>
+            <th>¿Foto?</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for m in model %}
+            <tr>
+                <td>{{ m.nombre }}</td>
+                <td>{{ m.marca }}</td>
+                <td>{{ m.costo }}</td>
+                <td>{{ m.precio }}</td>
+                <td>{{ m.margen }}</td>
+                <td>{{ m.TieneFoto }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

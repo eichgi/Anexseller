@@ -1,0 +1,67 @@
+{% extends "partials/layout.twig" %}
+{% block content %}
+    <h1 class="page-header">Inicio</h1>
+    <p class="well">
+        Bienvenido a la página principal de <b>Anexseller</b>, software realizado para el curso de PHP por Eduardo Rodríguez y <a href="http://anexsoft.com" target="blank">Anexsoft</a>. Desde
+        este apartado usted podrá visualizar un resumen de su negocio actual.
+    </p>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Mantenimiento</div>
+                <table class="table table-stripped">
+                    <tbody>
+                        <tr>
+                            <td><i class="fa fa-archive"></i> Productos</td>     
+                            <td class="text-right">104</td>           
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-user"></i> Clientes</td>     
+                            <td class="text-right">4</td>           
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-user"></i> Usuarios</td>     
+                            <td class="text-right">4</td>           
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Ventas</div>
+                <table class="table table-stripped">
+                    <tbody>
+                        <tr>
+                            <td><i class="fa fa-file-text-o"></i> Comprobantes</td>     
+                            <td class="text-right">104</td>           
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-money"></i> Utilidad del Mes</td>
+                            <td class="text-right">USD 8,000.00</td>           
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-money"></i> Utilidad Total</td>
+                            <td class="text-right">USD 1'456,100.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <ul class="list-group">
+        <li class="list-group-item">
+            <b>Sitio oficial</b>: <a href="http://anexsoft.com" target="_blank">Anexsoft</a>
+        </li>
+        <li class="list-group-item">
+            <b>Fan page</b>: <a href="https://www.facebook.com/Anexsoft?ref=ts&fref=ts" target="_blank">Anexsoft Fan Page</a>
+        </li>
+        <li class="list-group-item">
+            <b>Canal de YouTube</b>: <a href="https://www.youtube.com/c/AnexsoftVideos?sub_confirmation=1" target="_blank">Anexsoft Canal Oficial</a>
+        </li>
+        <li class="list-group-item">
+            <b>Web Full Stack</b>: <a href="https://www.facebook.com/groups/665529303555720/?ref=ts&fref=ts" target="_blank">Desarrolladores Web Full Stack</a>, grupo oficial en el Facebook donde varios desarrolladores de tecnología web nos juntamos.
+        </li>
+    </ul>
+{% endblock %}

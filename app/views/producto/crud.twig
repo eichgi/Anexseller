@@ -1,0 +1,57 @@
+{% extends "partials/layout.twig" %}
+{% block content %}
+    <h1 class="page-header">Productos</h1>
+
+    <ol class="breadcrumb">
+        <li><a href="{{ 'producto'|url }}">Productos</a></li>
+        <li class="active">
+            CRUD
+        </li>
+    </ol>
+
+    <form method="post" action="{{ 'producto/guardar'|url }}">
+        <div class="alert-container"></div>
+        <input type="hidden" class="form-control" name="id" value="{{ model.id }}"/>
+        <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" class="form-control" name="nombre" value="{{ model.nombre }}"/>
+            <span data-key="nombre" class="form-validation-failed"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Marca</label>
+            <input type="text" class="form-control" name="marca" value="{{ model.marca }}"/>
+            <span data-key="marca" class="form-validation-failed"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Costo</label>
+            <input type="text" class="form-control" name="costo" value="{{ model.costo }}"/>
+            <span data-key="costo" class="form-validation-failed"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Precio</label>
+            <input type="text" class="form-control" name="precio" value="{{ model.precio }}"/>
+            <span data-key="precio" class="form-validation-failed"></span>
+        </div>
+
+        {% if model.id is not null %}
+            <div class="form-group">
+                <label>Foto</label>
+                <input type="file" class="form-control" name="foto"/>
+                <span data-key="foto" class="form-validation-failed"></span>
+            </div>
+        {% endif %}
+        {% if model.foto is not null %}
+            <div class="thumbnail">
+                <img src="{{ model.foto|public }}" alt="">
+            </div>
+        {% endif %}
+
+
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit" data-ajax="true">Guardar</button>
+        </div>
+    </form>
+{% endblock %}

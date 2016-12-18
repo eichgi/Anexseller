@@ -1,0 +1,168 @@
+{% extends "partials/layout.twig" %}
+{% block content %}
+    <h1 class="page-header">
+        <a href="{{ 'producto/crud'|url }}" class="btn btn-default pull-right">Nuevo</a>
+        <button data-toggle="modal" data-target="#modal-importar" class="btn btn-success pull-right mg-right"><i
+                    class="fa fa-upload"></i> Importar
+        </button>
+        <a href="{{ 'producto/exportar'|url }}" class="btn btn-primary pull-right mg-right"><i class="fa fa-download"></i> Exportar</a>
+        Productos
+    </h1>
+
+    <ol class="breadcrumb">
+        <li class="active">Productos</li>
+    </ol>
+
+    <div id="grid"></div>
+
+    {#    <table class="table table-striped">
+            <thead>
+            <tr>
+                <th style="width:60px;"></th>
+                <th style="width:100px;">Marca</th>
+                <th>Nombre</th>
+                <th style="width:140px;" class="text-right">Costo</th>
+                <th style="width:140px;" class="text-right">Precio</th>
+                <th style="width:140px;" class="text-right">Ingreso</th>
+                <th style="width:140px;" class="text-right">Utilidad</th>
+                <th style="width:80px;" class="text-right">Margen</th>
+                <th style="width:40px;"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in 0..9 %}
+                <tr>
+                    <td></td>
+                    <td>Marca</td>
+                    <td><a href="{{ 'producto/crud'|url }}">Guitarra eléctrica</a></td>
+                    <td class="text-right">USD 100.00</td>
+                    <td class="text-right">USD 400.00</td>
+                    <td class="text-right">USD 300.00</td>
+                    <td class="text-right">USD 200.00</td>
+                    <td class="text-right">
+                        <small class="label label-info">300 %</small>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-block btn-xs">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>#}
+
+    <div id="modal-importar" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form class="modal-content" method="post" action="{{ 'producto/importar'|url }}">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Importación desde CSV</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert-container"></div>
+                    <div class="form-group">
+                        <label>Archivo</label>
+                        <input name="archivo" type="file" class="form-control"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" data-ajax="true" class="btn btn-primary">Importar</button>
+                </div>
+            </form><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            var data = {
+                class: 'table-striped table-bordered table-condensed table-hover',
+                columnas: [
+                    {style: 'width: 60px;'},
+                    {leyenda: 'Nombre', class: '', ordenable: true, columna: 'nombre'},
+                    {leyenda: 'Marca', class: '', ordenable: true, columna: 'marca'},
+                    {leyenda: 'Costo', class: '', ordenable: true, columna: 'costo'},
+                    {leyenda: 'Precio', class: '', ordenable: true, columna: 'precio'},
+                    {leyenda: 'Utilidad', class: '', ordenable: true, columna: 'utilidad'},
+                    {leyenda: 'Margen', class: '', ordenable: true, columna: 'margen'},
+                    {style: 'width:40px;'}
+                ],
+                modelo: [
+                    {
+                        propiedad: 'foto', formato: function (tr, obj, valor) {
+                        if (valor == null) return;
+                        return '<img src="' + base_url('public/' + valor) + '" class="img-responsive"/>';
+                    }
+                    },
+                    {
+                        propiedad: 'nombre', formato: function (tr, obj, valor) {
+                        return anexGrid_link({
+                            href: '{{ 'producto/crud/'|url }}' + obj.id,
+                            contenido: valor
+                        });
+                    }
+                    },
+                    {propiedad: 'marca'},
+                    {
+                        propiedad: 'costo', class: 'text-right', formato: function (tr, obj, value) {
+                        return 'USD: $ ' + value;
+                    }
+                    },
+                    {
+                        propiedad: 'precio', class: 'text-right', formato: function (tr, obj, value) {
+                        return 'USD: $ ' + value;
+                    }
+                    },
+                    {
+                        class: 'text-right', formato: function (tr, obj, value) {
+                        return 'USD: $ ' + Formulas.calcularUtilidad(obj.costo, obj.precio).toFixed(2);
+                    }
+                    },
+                    {
+                        class: 'text-right', formato: function (tr, obj, value) {
+                        var utilidad = Formulas.calcularMargenUtilidad(obj.costo, obj.precio).toFixed(0);
+                        return '<small class="label label-info">' + utilidad + ' %</small>'
+                    }
+                    },
+                    {
+                        propiedad: 'id', formato: function (tr, obj, valor) {
+                        return anexGrid_boton({
+                            type: 'button',
+                            class: 'btn btn-xs btn-danger btn-block btn-eliminar',
+                            value: valor,
+                            contenido: '<i class="fa fa-trash"></i>'
+                        });
+                    }
+                    },
+                ],
+                url: '{{ 'producto/grid'|url }}',
+                paginable: true,
+                limite: [20, 60, 100],
+                columna: 'id',
+                columna_orden: 'desc'
+            };
+
+            var grid = $("#grid").anexGrid(data);
+
+            grid.tabla().on('click', '.btn-eliminar', function () {
+                var obj = $(this);
+                obj.attr('disabled', true);
+
+                $.post(base_url('cliente/eliminar'), {
+                    id: obj.val()
+                }, function (r) {
+                    if (r.response) {
+                        grid.refrescar();
+                    } else {
+                        alert(r.message);
+                    }
+                }, 'json')
+                grid.refrescar();
+            })
+        })
+    </script>
+{% endblock %}

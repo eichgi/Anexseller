@@ -1,0 +1,72 @@
+{% extends "partials/layout.twig" %}
+{% block content %}
+    <h1 class="page-header">
+        <a href="{{ 'cliente/crud'|url }}" class="btn btn-default pull-right">Nuevo</a>
+        Clientes
+    </h1>
+
+    <ol class="breadcrumb">
+        <li class="active">Clientes</li>
+    </ol>
+
+    <div id="grid"></div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            var data = {
+                class: 'table-striped table-bordered table-condensed table-hover',
+                columnas: [
+                    {leyenda: 'Nombre', class: '', ordenable: true, columna: 'nombre'},
+                    {leyenda: 'Direccion', class: '', ordenable: true, columna: 'direccion'},
+                    {style: 'width:40px;'}
+                ],
+                modelo: [
+                    {
+                        propiedad: 'nombre', formato: function (tr, obj, valor) {
+                        return anexGrid_link({
+                            href: '{{ 'cliente/crud/'|url }}' + obj.id,
+                            contenido: valor
+                        });
+                    }
+                    },
+                    {propiedad: 'direccion'},
+                    {
+                        propiedad: 'id', formato: function (tr, obj, valor) {
+                        return anexGrid_boton({
+                            type: 'button',
+                            class: 'btn btn-xs btn-danger btn-block btn-eliminar',
+                            value: valor,
+                            contenido: '<i class="fa fa-trash"></i>'
+                        });
+                    }
+                    },
+                ],
+                url: '{{ 'cliente/grid'|url }}',
+                paginable: true,
+                limite: [20, 60, 100],
+                columna: 'id',
+                columna_orden: 'desc'
+            };
+
+            var grid = $("#grid").anexGrid(data);
+
+            grid.tabla().on('click', '.btn-eliminar', function () {
+                var obj = $(this);
+                obj.attr('disabled', true);
+
+                $.post(base_url('cliente/eliminar'), {
+                    id: obj.val()
+                }, function (r) {
+                    if (r.response) {
+                        grid.refrescar();
+                    } else {
+                        alert(r.message);
+                    }
+                }, 'json')
+                grid.refrescar();
+            })
+        })
+    </script>
+{% endblock %}

@@ -71,4 +71,13 @@ class ClienteController extends Controller
             )
         );
     }
+
+    public function getBuscar($q)
+    {
+        print_r(
+            json_encode(
+                $this->clienteRepo->buscar($q)
+            )
+        );
+    }
 }

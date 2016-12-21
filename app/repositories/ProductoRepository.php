@@ -24,6 +24,23 @@ class ProductoRepository
         $this->producto = new Producto;
     }
 
+    public function buscar(string $q) : array
+    {
+        $result = [];
+
+        try {
+            $result = $this->producto
+                ->where('nombre', 'like', "%$q%")
+                ->orderBy('nombre')
+                ->get()
+                ->toArray();
+        } catch (Exception $e) {
+            Log::error(ProductoRepository::class, $e->getMessage());
+        }
+
+        return $result;
+    }
+
     public function todo() : Collection
     {
         $result = NULL;

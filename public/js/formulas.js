@@ -3,7 +3,8 @@ var Formulas = (function () {
 
     return {
         calcularIva: function (monto) {
-            return monto * iva;
+            var subTotal = Formulas.calcularMontoSinIva(monto);
+            return monto - subTotal;
         },
         calcularMontoSinIva: function (monto) {
             return monto / (1 + iva);

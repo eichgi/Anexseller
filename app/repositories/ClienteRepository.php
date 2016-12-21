@@ -1,15 +1,11 @@
 <?php
 namespace App\Repositories;
 
-use Core\{
-    Auth, Log
-};
-use App\Helpers\{
-    ResponseHelper, AnexGridHelper
-};
-use App\Models\{
-    Cliente
-};
+use Core\Auth;
+use Core\Log;
+use App\Helpers\ResponseHelper;
+use App\Helpers\AnexGridHelper;
+use App\Models\Cliente;
 use Exception;
 
 class ClienteRepository
@@ -99,6 +95,23 @@ class ClienteRepository
         }
 
         return $rh;
+    }
+
+    public function buscar(string $q) : array
+    {
+        $result = [];
+
+        try {
+            $result = $this->cliente
+                ->where('nombre', 'like', "%$q%")
+                ->orderBy('nombre')
+                ->get()
+                ->toArray();
+        } catch (Exception $e) {
+            Log::error(ClienteRepository::class, $e->getMessage());
+        }
+
+        return $result;
     }
 
 

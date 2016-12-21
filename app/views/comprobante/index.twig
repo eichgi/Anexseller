@@ -9,7 +9,8 @@
         <li class="active">Comprobantes</li>
     </ol>
 
-    <table class="table table-striped">
+    <div id="grid"></div>
+    {#<table class="table table-striped">
         <thead>
             <tr>
                 <th>Comprobante</th>
@@ -32,5 +33,108 @@
             </tr>
             {% endfor %}
         </tbody>
-    </table>
+    </table>#}
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            var data = {
+                class: 'table-striped table-bordered table-condensed table-hover',
+                columnas: [
+                    {leyenda: 'Comprobante', class: '', ordenable: true, columna: 'id'},
+                    {leyenda: 'Cliente', class: '', ordenable: true, columna: 'cliente_id', style: 'width: 300px'},
+                    {leyenda: 'Emitido', class: '', ordenable: true, columna: 'fecha', style: 'width:200px;'},
+                    {
+                        leyenda: 'Sub Total',
+                        ordenable: true,
+                        columna: 'sub_total',
+                        style: 'width:120px;',
+                        class: 'text-right'
+                    },
+                    {leyenda: 'IVA', ordenable: true, columna: 'iva', style: 'width:120px;', class: 'text-right'},
+                    {leyenda: 'Total', ordenable: true, columna: 'total', style: 'width:120px;', class: 'text-right'},
+                    {style: 'width:40px;'},
+                    {style: 'width:40px;'}
+                ],
+                modelo: [
+                    {
+                        propiedad: 'id', formato: function (tr, obj, valor) {
+                        return anexGrid_link({
+                            href: '{{ 'comprobante/detalle/'|url }}' + obj.id,
+                            contenido: '#' + valor.padLeft(6)
+                        });
+                    }
+                    },
+                    {propiedad: 'cliente.nombre'},
+                    {
+                        propiedad: 'fecha', formato: function (tr, obj, valor) {
+                        return moment(valor).format('DD/MM/YYYY h:m:s');
+                    }
+                    },
+                    {
+                        propiedad: 'sub_total', class: 'text-right', formato: function (tr, obj, valor) {
+                        return parseFloat(valor).format(2);
+                    }
+                    },
+                    {
+                        propiedad: 'iva', class: 'text-right', formato: function (tr, obj, valor) {
+                        return parseFloat(valor).format(2);
+                    }
+                    },
+                    {
+                        propiedad: 'total', class: 'text-right', formato: function (tr, obj, valor) {
+                        return parseFloat(valor).format(2);
+                    }
+                    },
+                    {
+                        propiedad: 'id', class: 'text-center', formato: function (tr, obj, valor) {
+                        if (obj.anulado === 1) return;
+                        return anexGrid_link({
+                            href: '{{ 'comprobante/pdf/'|url }}' + obj.id,
+                            contenido: '<i class="fa fa-download"></i>'
+                        });
+                    }
+                    },
+                    {
+                        propiedad: 'id', class: 'text-center', formato: function (tr, obj, valor) {
+                        if (obj.anulado === 1) {
+                            tr.addClass('text-danger');
+                            return '<i class="fa fa-remove"></i>';
+                        }
+                        ;
+
+                        return anexGrid_boton({
+                            type: 'button',
+                            class: 'btn btn-xs btn-danger btn-block btn-eliminar',
+                            value: valor,
+                            contenido: '<i class="fa fa-trash"></i>'
+                        });
+                    }
+                    },
+                ],
+                url: '{{ 'comprobante/grid'|url }}',
+                paginable: true,
+                limite: [20, 60, 100],
+                columna: 'id',
+                columna_orden: 'desc'
+            };
+
+            var grid = $('#grid').anexGrid(data);
+
+            grid.tabla().on('click', '.btn-eliminar', function () {
+                var obj = $(this);
+                obj.attr('disabled', true);
+
+                $.post(base_url('comprobante/anular'), {
+                    id: obj.val()
+                }, function (r) {
+                    if (r.response) {
+                        grid.refrescar();
+                    } else {
+                        alert(r.message);
+                    }
+                }, 'json');
+            });
+        });
+    </script>
 {% endblock %}

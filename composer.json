@@ -11,6 +11,7 @@
     "monolog/monolog": "^1.21",
     "illuminate/database": "^5.3",
     "respect/validation": "^1.1",
-    "intervention/image": "^2.3"
+    "intervention/image": "^2.3",
+    "dompdf/dompdf": "^0.7.0"
   }
 }

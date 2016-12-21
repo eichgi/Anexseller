@@ -1,0 +1,76 @@
+{% extends "partials/layout.twig" %}
+{% block content %}
+    <h1 class="page-header">Comprobantes</h1>
+    <ol class="breadcrumb">
+        <li><a href="{{ 'comprobante'|url }}">Comprobante</a></li>
+        <li class="active">Comprobante #{{ model.idForView }}</li>
+        {#<li class="active">Comprobante #{{ model.idForView() }}</li>#}
+        {#<li class="active">Comprobante #{{ model.id|padLeft(6) }}</li>#}
+    </ol>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-4">
+                    <input readonly class="form-control" type="text" placeholder="Cliente"
+                           value="{{ model.cliente.nombre }}">
+                </div>
+                <div class="col-xs-8">
+                    <input class="form-control" type="text" placeholder="Dirección" readonly
+                           value="{{ model.cliente.direccion }}">
+                </div>
+            </div>
+            <hr>
+            <ul id="facturador-detalle" class="list-group">
+                {% for d in model.detalle %}
+                    {#<p>{{ d }}</p>#}
+                    <li each="{model.detalle}" class="list-group-item">
+                        <div class="row">
+                            <div class="col-xs-7">
+                                {{ d.producto.nombre }}
+                            </div>
+                            <div class="col-xs-1 text-right">
+                                {{ d.cantidad|number_format(0) }}
+                            </div>
+                            <div class="col-xs-2 text-right">
+                                {{ d.precio|number_format(2) }}
+                            </div>
+                            <div class="col-xs-2 text-right">
+                                {{ d.total|number_format(2) }}
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+                <li class="list-group-item">
+                    <div class="row text-right">
+                        <div class="col-xs-10 text-right">
+                            Sub Total
+                        </div>
+                        <div class="col-xs-2">
+                            <b>{{ model.sub_total|number_format(2) }}</b>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row text-right">
+                        <div class="col-xs-10 text-right">
+                            IVA (18%)
+                        </div>
+                        <div class="col-xs-2">
+                            <b>{{ model.iva|number_format(2) }}</b>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row text-right">
+                        <div class="col-xs-10 text-right">
+                            Total
+                        </div>
+                        <div class="col-xs-2">
+                            <b>{{ model.total|number_format(2) }}</b>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

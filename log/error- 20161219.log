@@ -1,0 +1,2 @@
+[2016-12-19 23:09:28] App\Repositories\ProductoRepository.ERROR: Trying to get property of non-object [] []
+[2016-12-19 23:11:18] App\Repositories\ProductoRepository.ERROR: Trying to get property of non-object [] []

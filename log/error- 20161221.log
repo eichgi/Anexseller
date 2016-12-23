@@ -1,0 +1,2 @@
+[2016-12-21 18:03:44] App\Repositories\ReporteRepository.ERROR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'anio' in 'order clause' (SQL: select * from `producto` order by `anio` desc limit 20 offset 0) [] []
+[2016-12-21 18:03:52] App\Repositories\ReporteRepository.ERROR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'anio' in 'order clause' (SQL: select * from `producto` order by `anio` desc limit 20 offset 0) [] []

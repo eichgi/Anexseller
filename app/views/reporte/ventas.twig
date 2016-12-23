@@ -4,26 +4,52 @@
         Reporte de venta por mes
     </h1>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th style="width:100px;">Año</th>
-                <th>Mes</th>
-                <th style="width:200px;" class="text-right">Costo</th>
-                <th style="width:200px;" class="text-right">Ingreso</th>
-                <th style="width:200px;" class="text-right">Utilidad</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for i in 0..9 %}
-            <tr>
-                <td>2016</td>
-                <td>Diciembre</td>
-                <td class="text-right">USD 100.00</td>
-                <td class="text-right">USD 500.00</td>
-                <td class="text-right">USD 400.00</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div id="grid"></div>
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            var data = {
+                class: 'table-striped table-bordered table-condensed table-hover',
+                columnas: [
+                    {leyenda: 'Año', columna: 'anio', style: 'width:80px'},
+                    {leyenda: 'Mes', columna: 'mes'},
+                    {leyenda: 'Costo', class: 'text-right', columna: 'costo'},
+                    {leyenda: 'Ingreso', class: 'text-right', columna: 'total'},
+                    {leyenda: 'Utilidad', class: 'text-right', columna: 'utilidad'}
+                ],
+                modelo: [
+                    {propiedad: 'anio'},
+                    {
+                        propiedad: 'mes', formato: function (tr, obj, valor) {
+                        //return parseInt(valor).toMonth();
+                        return moment(valor).format('MMMM');
+                    }
+                    },
+                    {
+                        propiedad: 'costo', class: 'text-right', formato: function (tr, obj, valor) {
+                        return parseFloat(valor).format(2);
+                    }
+                    },
+                    {
+                        propiedad: 'total', class: 'text-right', formato: function (tr, obj, valor) {
+                        return parseFloat(valor).format(2);
+                    }
+                    },
+                    {
+                        propiedad: 'utilidad', class: 'text-right', formato: function (tr, obj, valor) {
+                        return parseFloat(obj.total - obj.costo).format(2);
+                    }
+                    },
+                ],
+                url: '{{ 'reporte/ventas_grid'|url }}',
+                paginable: true,
+                limite: [20, 60, 100],
+                columna: 'id',
+                columna_orden: 'desc'
+            };
+
+            var grid = $("#grid").anexGrid(data);
+        })
+    </script>
 {% endblock %}
